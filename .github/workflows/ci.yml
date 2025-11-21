@@ -54,3 +54,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: i-defranca/kanban-facilit
+          files: target/site/jacoco/jacoco.xml
+          fail_ci_if_error: true
