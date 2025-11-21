@@ -1,6 +1,9 @@
 services:
   api:
-    build: .
+    build:
+      context: .
+      args:
+        DOCKER_GID: "${DOCKER_GID}"
     command: mvn spring-boot:run
     working_dir: /app
     ports:
