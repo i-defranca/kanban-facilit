@@ -34,6 +34,11 @@ Copy environment file:
   cp .env.example .env
 ```
 
+Mirror your docker group into the container (to run testcontainers from within docker):
+```bash
+  echo "DOCKER_GID=$(stat -c "%g" /var/run/docker.sock)" >> .env
+```
+
 Build and start container:
 
 ```bash
