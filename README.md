@@ -14,6 +14,9 @@
 
 ## Features
 
+- CRUD endpoints for Project, Member and Department
+- Project listing by status and project status update 
+
 ## Run Locally
 
 Clone the project
@@ -64,6 +67,16 @@ To run tests, run the following command
 ```
 ## Roadmap
 
+- API docs
+- Metrics endpoints
+- GraphQL support
+- Pagination support
+- Authenticate routes - scope by project members
+- Status transition tests
+- Optimize status transition rules
+- Project members handling
+
 ## Badges
 
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+[![Coverage](https://codecov.io/gh/i-defranca/kanban-facilit/branch/main/graph/badge.svg)](https://codecov.io/gh/i-defranca/kanban-facilit)
