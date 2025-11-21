@@ -1,0 +1,9 @@
+ scripts:
+  app: kool exec api
+  test: kool exec api mvn clean verify
+  psql: kool exec -e PGPASSWORD=$DB_PASSWORD database psql -U $DB_USERNAME $DB_DATABASE
+  reset:
+  - kool restart --rebuild
+  setup:
+  - cp .env.example .env
+  - kool start -b

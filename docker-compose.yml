@@ -1,0 +1,45 @@
+services:
+  api:
+    build: .
+    command: mvn spring-boot:run
+    working_dir: /app
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - .:/app:cached
+      - ~/.m2:/root/.m2
+      - target:/app/target
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kool_local
+    environment:
+      JAVA_OPTS: -Xms256m -Xmx512m
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DEVTOOLS_RESTART_ENABLED: true
+      TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE: /var/run/docker.sock
+      DOCKER_HOST: unix:///var/run/docker.sock
+      DOCKER_GID: ${DOCKER_GID:-958}
+    group_add:
+      - ${DOCKER_GID:-958}
+    restart: unless-stopped
+  database:
+    image: postgres:16-alpine
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: "${DB_DATABASE:-database}"
+      POSTGRES_USER: "${DB_USERNAME:-username}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-password}"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - kool_local
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "$DB_DATABASE", "-U", "$DB_USERNAME" ]
+networks:
+  kool_local:
+
+volumes:
+  target:
+  database:
